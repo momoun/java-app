@@ -1,0 +1,7 @@
+---
+java_openjdk_version: 14
+java_openjdk_packages: jdk-headless
+java_openjdk_use_ppa: true
+java_app_repo: https://github.com/Coveros/helloworld.git
+java_app_branch: master
+java_app_dist: /opt/

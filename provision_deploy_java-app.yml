@@ -1,0 +1,6 @@
+---
+- hosts: test.com
+  become: yes
+  remote_user: root
+  roles:
+   - java-app

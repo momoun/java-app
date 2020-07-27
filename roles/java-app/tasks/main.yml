@@ -1,0 +1,37 @@
+---
+- name: add openjdk PPA
+  apt_repository:
+   repo: 'ppa:openjdk-r/ppa'
+   state: present
+   update_cache: true
+- name: install openjdk
+  apt:
+    name: "{{ java_openjdk_package_name }}"
+    update_cache: true
+    state: present
+- name: set openjdk as default java
+  alternatives:
+     name: java
+     path: "{{ java_openjdk_java_bin }}"
+- name: add default-java symlink
+  file:
+    state: link
+    src: "{{ java_openjdk_dir }}"
+    dest: "{{ java_openjdk_default_java_link}}"
+- name: Clone java app
+  git:
+    repo: "{{ java_app_repo }}"
+    version: "{{ java_app_branch }}"
+    dest: "{{ java_app_dist }}"
+    accept_hostkey: yes
+- name: upload java-app service 
+  template:
+    src=webserver.service
+    dest="/usr/lib/systemd/system/"
+    owner=root
+    group=root
+    mode=0644
+    force=yes
+- name: start webserver service 
+  systemd: state=started name=webserver.service daemon_reload=yes
+

@@ -1,0 +1,3 @@
+#env is Jenkins build parameter
+$ `gen-hosts-list $env` > /path/to/hosts_list
+$ ansible-playbook /path/to/ansible-playbook.yml -i /path/to/hosts_list -u AUTO_USER --private-key=/path/to/private-key
